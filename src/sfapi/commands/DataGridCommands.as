@@ -36,6 +36,10 @@ import sfapi.core.ErrorMessages;
 import sfapi.core.ReferenceData;
 import sfapi.core.Tools;
 
+import spark.events.GridEvent;
+
+import spark.events.GridSelectionEvent;
+
 public class DataGridCommands extends AbstractCommand
 	{
 		public function DataGridCommands(aptObj:AppTreeParser, contextObj:Commands)
@@ -675,8 +679,9 @@ public class DataGridCommands extends AbstractCommand
                 var widget:Object = appTreeParser.getElement(target);
                 widget.selectedIndex = index;
                 result = String(widget.dispatchEvent(new MouseEvent(MouseEvent.DOUBLE_CLICK)) && widget.dispatchEvent(new ListEvent(ListEvent.CHANGE)));
-                var gridItem:Object = getDataGridCellComponent(target, index, "0");
-                result += " " + String(gridItem.dispatchEvent(new MouseEvent(MouseEvent.DOUBLE_CLICK)) );
+//                var gridItem:Object = getDataGridCellComponent(target, index, "0");
+//                result += " " + String(gridItem.dispatchEvent(new MouseEvent(MouseEvent.DOUBLE_CLICK)) );
+                result += " " + String(widget.dispatchEvent(new GridEvent(GridEvent.GRID_DOUBLE_CLICK)) && widget.dispatchEvent(new GridSelectionEvent(GridSelectionEvent.SELECTION_CHANGE)) );
             }
             catch (e:Error)
             {
