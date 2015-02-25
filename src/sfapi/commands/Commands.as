@@ -299,6 +299,10 @@ package sfapi.commands
                         dataGridCommands.doFlexDataGridClickColumnHeader);
                 ExternalInterface.addCallback("doFlexDataGridSelectComboByLabel",
                         dataGridCommands.doFlexDataGridSelectComboByLabel);
+                ExternalInterface.addCallback("doFlexDataGridSelectByIndex",
+                        dataGridCommands.doFlexDataGridSelectByIndex);
+                ExternalInterface.addCallback("doFlexDataGridSelectByIndexDoubleClick",
+                        dataGridCommands.doFlexDataGridSelectByIndexDoubleClick);
 
 				// Raw commands
 				

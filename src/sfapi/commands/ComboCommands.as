@@ -22,8 +22,10 @@ package sfapi.commands
 {
 	import mx.events.ListEvent;
 	import sfapi.core.AppTreeParser;
-	
-	public class ComboCommands extends AbstractCommand
+
+import spark.events.IndexChangeEvent;
+
+public class ComboCommands extends AbstractCommand
 	{
 		public function ComboCommands(aptObj:AppTreeParser, contextObj:Commands)
 		{
@@ -56,7 +58,8 @@ package sfapi.commands
                 if (index > -1)
                 {
                     widget.selectedIndex = index;
-                    result = String(widget.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK)) && widget.dispatchEvent(new ListEvent(ListEvent.CHANGE)));
+//                    result = String(widget.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK)) && widget.dispatchEvent(new ListEvent(ListEvent.CHANGE)));
+                    result = String(widget.dispatchEvent(new spark.events.IndexChangeEvent(ListEvent.ITEM_CLICK)) && widget.dispatchEvent(new spark.events.IndexChangeEvent(ListEvent.CHANGE)));
                 }
                 else
                 {

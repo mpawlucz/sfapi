@@ -29,6 +29,7 @@ import flash.utils.describeType;
 import mx.controls.DataGrid;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.events.DataGridEvent;
+import mx.events.ListEvent;
 
 import sfapi.core.AppTreeParser;
 import sfapi.core.ErrorMessages;
@@ -648,6 +649,41 @@ public class DataGridCommands extends AbstractCommand
             }
 
             return context.comboCommands.rawFlexSelectComboByLabel(object, comboBoxLabel);
+        }
+
+        public function doFlexDataGridSelectByIndex(target:String, index:String):String
+        {
+            var result:String;
+            try{
+                var widget:Object = appTreeParser.getElement(target);
+                widget.selectedIndex = index;
+                result = String(widget.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK)) && widget.dispatchEvent(new ListEvent(ListEvent.CHANGE)));
+            }
+            catch (e:Error)
+            {
+                // todo standard err
+                result = "ERROR: Widget '" + widget + "': " + e.message;
+            }
+            return result;
+        }
+
+        // todo: does not work
+        public function doFlexDataGridSelectByIndexDoubleClick(target:String, index:String):String
+        {
+            var result:String;
+            try{
+                var widget:Object = appTreeParser.getElement(target);
+                widget.selectedIndex = index;
+                result = String(widget.dispatchEvent(new MouseEvent(MouseEvent.DOUBLE_CLICK)) && widget.dispatchEvent(new ListEvent(ListEvent.CHANGE)));
+                var gridItem:Object = getDataGridCellComponent(target, index, "0");
+                result += " " + String(gridItem.dispatchEvent(new MouseEvent(MouseEvent.DOUBLE_CLICK)) );
+            }
+            catch (e:Error)
+            {
+                // todo standard err
+                result = "ERROR: Widget '" + widget + "': " + e.message;
+            }
+            return result;
         }
 
         /**
